@@ -4,7 +4,7 @@ class logger:
     """
     Constructor
     """
-    def __init__(self, log_level):
+    def __init__(self, log_level: int):
         self.__log_level__ = log_level
 
 
@@ -15,4 +15,3 @@ class logger:
     """
     def log(self, log_level, message):
         return
-
