@@ -6,10 +6,10 @@ class file_logger(logger):
     """
     Constructor
     """
-    def __init__(self, log_level):
+    def __init__(self, log_level, filename="file_log.txt"):
         logger.__init__(self, log_level)
         try:
-            self.file = open("file_log.txt", "w+")
+            self.file = open(filename, "w+")
         except Exception:
             print(Exception)
             exit()

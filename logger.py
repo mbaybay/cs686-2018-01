@@ -4,7 +4,7 @@ class logger:
     """
     Constructor
     """
-    def __init__(self, log_level: int):
+    def __init__(self, log_level):
         self.__log_level__ = log_level
 
 
