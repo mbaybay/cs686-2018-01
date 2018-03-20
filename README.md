@@ -7,6 +7,12 @@ Practice python OOP by completing the implementation. Details on Canvas. Files a
 * [logger.py](https://github.com/mbaybay/cs686-2018-01/blob/master/logger.py)
 * [logger_test.py](https://github.com/mbaybay/cs686-2018-01/blob/master/logger.py)
 
+SOLUTIONS:
+* [file_logger.py](https://github.com/mbaybay/cs686-2018-01/blob/master/file_logger.py)
+* [stdout_logger.py](https://github.com/mbaybay/cs686-2018-01/blob/master/stdout_logger.py)
+
+---
+
 ## Not a Lab, but do it anyway:
 
 Code for 2-class Logistic Regression:
