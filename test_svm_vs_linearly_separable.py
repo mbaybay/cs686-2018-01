@@ -1,6 +1,7 @@
-from svm import SVM
+from svc import SVC, plot_boundary
 import pandas as pd
 from sklearn.model_selection import train_test_split
+
 
 def accuracy(labels, hypotheses):
     count = 0.0
@@ -13,7 +14,7 @@ def accuracy(labels, hypotheses):
     return correct / count
 
 
-def print_confusion_matrix(labels, hypotheses):
+def print_confusion_matrix(labels, hypotheses, label=""):
     tp = 0.0
     tn = 0.0
     fp = 0.0
@@ -24,13 +25,13 @@ def print_confusion_matrix(labels, hypotheses):
         if l == 1 and h == 1:
             tp += 1.0
         elif l == 1 and h == 0:
-            tp += 1.0
+            fn += 1.0
         elif l == 0 and h == 0:
             tn += 1.0
         else:
-            fn += 1
+            fp += 1
     print('-----------------------------')
-    print('\tConfusion Matrix')
+    print('\t' + label + ' Confusion Matrix')
     print('-----------------------------')
     print('\t\tPredicted')
     print('\tActual\tNO\tYES')
@@ -51,17 +52,14 @@ def get_data(filename):
 if __name__ == '__main__':
     x, y = get_data("../../data/linearly_separable.csv")
     train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.1)
-    clf = SVM()
+    clf = SVC()
     weights = clf.fit(train_x, train_y)
-    print("weights: {}".format(weights))
+    train_pred = clf.predict(train_x)
+    print('Training Accuracy: {}%'.format(accuracy(train_y, train_pred) * 100))
+    print_confusion_matrix(test_y, train_pred, "Test")
     pred = clf.predict(test_x)
-    print("pred: {}".format(pred))
-    print('Accuracy:', accuracy(test_y, pred))
+    print('Test Accuracy: {}%'.format(accuracy(test_y, pred) * 100))
+    print_confusion_matrix(test_y, pred, "Test")
+    # plot_boundary(x, clf.w, clf.b)
 
-# verify_x, verify_y = get_data('verify.txt')
-# hypotheses = clf.predict(verify_x)
-
-
-#
-# print_confusion_matrix(verify_y, hypotheses)
 
