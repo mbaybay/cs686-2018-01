@@ -24,9 +24,9 @@ def print_confusion_matrix(labels, hypotheses, label=""):
         count += 1.0
         if l == 1 and h == 1:
             tp += 1.0
-        elif l == 1 and h == 0:
+        elif l == 1 and h == -1:
             fn += 1.0
-        elif l == 0 and h == 0:
+        elif l == -1 and h == -1:
             tn += 1.0
         else:
             fp += 1
@@ -55,11 +55,10 @@ if __name__ == '__main__':
     clf = SVC()
     weights = clf.fit(train_x, train_y)
     train_pred = clf.predict(train_x)
-    print('Training Accuracy: {}%'.format(accuracy(train_y, train_pred) * 100))
-    print_confusion_matrix(test_y, train_pred, "Test")
     pred = clf.predict(test_x)
     print('Test Accuracy: {}%'.format(accuracy(test_y, pred) * 100))
     print_confusion_matrix(test_y, pred, "Test")
-    # plot_boundary(x, clf.w, clf.b)
+    plot_boundary(x, y, clf.w, clf.b)
+
 
 

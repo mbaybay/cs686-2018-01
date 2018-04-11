@@ -185,11 +185,31 @@ def select_j_rand(i, m):
     return j
 
 
-def plot_boundary(X, weights, b):
+def plot_boundary(X, Y, weights, b, filename="SVM_linearly_separable.png"):
+    import pandas as pd
     fig, ax = plt.subplots(figsize=(10, 8))
-    y = calc_line(X, weights, b)
-    sns.regplot(x=X, y=y, ci=None, ax=ax)
-    plt.show()
+
+    df = pd.DataFrame(columns=["x1", "x2", "label"])
+    df["x1"] = X[:, 0]
+    df["x2"] = X[:, 1]
+    df["label"] = Y
+
+    labels = df["label"].unique()
+
+    ax.set_xlim(df["x1"].min() - 1, df["x1"].max() + 1)
+    ax.set_ylim(df["x2"].min() - 1, df["x2"].max() + 1)
+
+    sns.regplot(x="x1", y="x2", data=df[df["label"] == labels[0]], color="lightblue", fit_reg=False, ci=None, ax=ax)
+    sns.regplot(x="x1", y="x2", data=df[df["label"] == labels[1]], color="lightgreen", fit_reg=False, ci=None, ax=ax)
+
+    a = -weights[0] / weights[1]
+    xx = linspace(df["x1"].min()-1, df["x1"].max()+1)
+    yy = multiply(a, xx) - b / weights[1]
+    yy = squeeze(asarray(yy))
+
+    sns.regplot(x=xx, y=yy, ci=None, ax=ax)
 
 
-
+    # plt.show()
+    plt.savefig(filename)
+    print("Saved Plot: {}".format(filename))
